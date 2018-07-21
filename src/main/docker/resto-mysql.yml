@@ -1,0 +1,14 @@
+version: '2'
+services:
+    resto-mysql:
+        image: babagay/mysql
+        build:
+          context: .
+          dockerfile: resto-mysql/Dockerfile
+        container_name: mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=secret
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./mysqldata:/var/lib/mysql
