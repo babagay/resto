@@ -27,11 +27,11 @@ LABEL Author="Alex Panov", version=0.1
 # Либо так [A]:
 ENV MYSQL_ROOT_PASSWORD=root \
        MYSQL_USER=restouser \
-       MYSQL_PASSWORD=restopass \
+       MYSQL_PASSWORD=restopass1 \
        MYSQL_DATABASE=resto
 
 # Скопировать init.sql в папку /docker-entrypoint-initdb.sh
-# COPY init.sql /docker-entrypoint-initdb.sh/
+COPY ./init.sql /docker-entrypoint-initdb.sh/
 
 # cd src/main/docker/sample
 # Команда сборки образа (сначала перейти в папку, где лежит Dockerfile): docker build -t babagay/mysql .
