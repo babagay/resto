@@ -31,7 +31,21 @@ ENV MYSQL_ROOT_PASSWORD=root \
        MYSQL_DATABASE=resto
 
 # Скопировать init.sql в папку /docker-entrypoint-initdb.sh
-COPY ./init.sql /docker-entrypoint-initdb.sh/
+# В соответсвии с https://hub.docker.com/_/mysql/ все файлы в этой папке будут выполнены
+# [!] Файлы *.sql д.б. исключены из игнора в .dockerignore
+#  Copy the database schema to the /data directory
+# [!] Видимо, послк этого надо использовать команду RUN /docker-entrypoint-initdb.sh/init.sql
+COPY ./dump/init.sql /docker-entrypoint-initdb.d/init.sql
+# RUN mysqld --explicit_defaults_for_timestamp /docker-entrypoint-initdb.sh/init.sql
+# [!] Правильно так:
+# init_db.sh /tmp/init_db.sh
+# RUN /tmp/init_db.sh
+# Другой способ - подмонтировать папку с файлом init_db (sql или sh?) прямо в *.yml файле
+# Третий способ - в *.yml файле использовать секцию command
+
+
+
+
 
 # cd src/main/docker/sample
 # Команда сборки образа (сначала перейти в папку, где лежит Dockerfile): docker build -t babagay/mysql .
